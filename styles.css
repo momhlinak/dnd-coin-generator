@@ -31,7 +31,7 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
   z-index: -1;
 }
 
@@ -70,9 +70,9 @@ input[type='text'] {
   font-size: 1rem;
   margin: 0.5rem;
   padding: 0.5rem 1rem;
-  border: 0.125rem solid #c53030;
+  border: 0.125rem solid #cf9f25;
   background-color: #2d2d2d;
-  color: #f8f8f8;
+  color: #cf9f25;
   border-radius: 0.25rem;
 }
 
@@ -80,7 +80,7 @@ input[type='text'] {
 button:hover,
 input[type='number']:focus,
 input[type='text']:focus {
-  border-color: #e53e3e;
+  border-color: #cf9f25;
   outline: none;
 }
 
@@ -95,13 +95,13 @@ body.darkmode input[type='number'],
 body.darkmode input[type='text'] {
   background-color: #1e1e1e;
   border-color: #555;
-  color: #f8f8f8;
+  color: #cf9f25;
 }
 
 body.darkmode button:hover,
 body.darkmode input[type='number']:focus,
 body.darkmode input[type='text']:focus {
-  border-color: #e53e3e;
+  border-color: #cf9f25;
   outline: none;
 }
 
@@ -117,7 +117,7 @@ body.darkmode .toggle-btn {
   color: #f8f8f8;
 }
 body.darkmode .toggle-btn.enabled {
-  background-color: #38761d; /* darker green */
+  background-color: #38761d;
   border-color: #38761d;
 }
 body.darkmode .toggle-btn.disabled {
@@ -131,10 +131,19 @@ body.darkmode .toggle-btn.disabled {
   max-width: 30rem;
   margin: 0 auto 1.25rem auto;
   padding: 1.25rem;
-  background-color: #242424dd;
-  border: 0.0625rem solid #333;
   box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
+  background-image: url('images/frame-bk-lightmode.svg');
+  background-size: 478px auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Dark Mode Overrides */
+body.darkmode .input-section,
+body.darkmode .weight-section {
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.7);
+  background-image: url('images/frame-bk-darkmode.svg');
 }
 
 .gold-input {
@@ -153,7 +162,7 @@ body.darkmode .toggle-btn.disabled {
 /* Labels & Notes */
 .input-section p,
 .weight-section .note {
-  color: #ccc;
+  color: #cf9f25;
 }
 
 .note {
