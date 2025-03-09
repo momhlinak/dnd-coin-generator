@@ -63,36 +63,43 @@
         }
       }
 
-      function getRandomRatio() {
-        return Math.round((Math.random() * 19 + 1) * 10) / 10
+      // Returns a random whole number between 1 and 100 (as percentage)
+      function getRandomPercentage() {
+        return Math.floor(Math.random() * 100) + 1
       }
 
       function getCoinWeights() {
-        function readRatio(inputId, isEnabled) {
+        // Reads the percentage value from an input. If empty or 0, return a random percentage.
+        function readPercentage(inputId, isEnabled) {
           if (!isEnabled) return 0
           const el = document.getElementById(inputId)
+          // Allow only whole numbers
           el.value = el.value.replace(/[^\d]/g, '')
-          return parseInt(el.value, 10) || 0
+          const val = parseInt(el.value, 10)
+          if (isNaN(val) || val === 0) {
+            return getRandomPercentage()
+          }
+          return val
         }
 
         const weights = {
-          platinum: readRatio(
+          platinum: readPercentage(
             'weight-platinum',
             document.getElementById('toggle-platinum').classList.contains('enabled')
           ),
-          gold: readRatio(
+          gold: readPercentage(
             'weight-gold',
             document.getElementById('toggle-gold').classList.contains('enabled')
           ),
-          electrum: readRatio(
+          electrum: readPercentage(
             'weight-electrum',
             document.getElementById('toggle-electrum').classList.contains('enabled')
           ),
-          silver: readRatio(
+          silver: readPercentage(
             'weight-silver',
             document.getElementById('toggle-silver').classList.contains('enabled')
           ),
-          copper: readRatio(
+          copper: readPercentage(
             'weight-copper',
             document.getElementById('toggle-copper').classList.contains('enabled')
           ),
@@ -100,12 +107,19 @@
 
         const totalWeight = Object.values(weights).reduce((a, b) => a + b, 0)
         if (totalWeight === 0) {
+          // Default to all gold if sum is 0
           return {
             platinum: 0,
-            gold: 1,
+            gold: 100,
             electrum: 0,
             silver: 0,
             copper: 0,
+          }
+        }
+        // If total exceeds 100, normalize to sum to 100
+        if (totalWeight > 100) {
+          for (let coin in weights) {
+            weights[coin] = Math.round((weights[coin] / totalWeight) * 100)
           }
         }
         return weights
@@ -175,10 +189,12 @@
       document.addEventListener('DOMContentLoaded', function () {
         setLanguage('en')
 
+        // Initialize custom language dropdown
         const customSelectContainer = document.querySelector('.custom-select-container')
         const trigger = document.querySelector('.custom-select-trigger')
         const customOptions = document.querySelectorAll('.custom-option')
 
+        // Set the trigger's background to fill its area with the flag image
         trigger.style.backgroundImage = "url('images/flags/EN.jpg')"
         trigger.style.backgroundSize = 'cover'
         trigger.style.backgroundPosition = 'center'
@@ -190,6 +206,8 @@
           option.style.backgroundSize = 'cover'
           option.style.backgroundPosition = 'center'
           option.style.backgroundRepeat = 'no-repeat'
+          option.style.height = '52px'
+          option.style.lineHeight = '52px'
         })
 
         trigger.addEventListener('click', function (e) {
@@ -205,9 +223,7 @@
 
             trigger.style.backgroundImage = `url('${flagUrl}')`
             trigger.querySelector('.custom-select-text').textContent = text
-
             customSelectContainer.classList.remove('open')
-
             setLanguage(option.getAttribute('data-value'))
           })
         })
@@ -224,8 +240,8 @@
             event.preventDefault()
             let step = parseInt(input.step) || 1
             let min = parseInt(input.min) || 0
-            let max = parseInt(input.max) || 20
-            let currentValue = parseInt(input.value) || 0
+            let max = parseInt(input.max) || 100 // now percentage based (0-100)
+            let currentValue = parseInt(input.value, 10) || 0
             if (event.deltaY < 0) {
               currentValue = Math.min(currentValue + step, max)
             } else {
@@ -235,25 +251,14 @@
           })
         })
       })
-
-      function enforceCoinRatioInput(input) {
-        let value = input.value.replace(/[^0-9.]/g, '')
-        const parts = value.split('.')
-        if (parts.length > 2) {
-          value = parts[0] + '.' + parts.slice(1).join('')
-        }
-        if (parts.length === 2) {
-          parts[1] = parts[1].substring(0, 1)
-          value = parts[0] + '.' + parts[1]
-        }
-        input.value = value
-      }
     </script>
   </head>
   <body>
     <div class="container">
+      <!-- Title -->
       <h1 id="title">D&D Coin Generator with Integrated Results</h1>
 
+      <!-- Gold Input Section -->
       <div class="input-section">
         <p id="enterGoldCoins">Enter the number of gold coins:</p>
         <input
@@ -262,6 +267,7 @@
           type="number"
           step="1"
           oninput="this.value = this.value.replace(/[^\d]/g, '');"
+          placeholder="e.g. 10"
         />
         <div class="input-buttons">
           <button id="generateBtn" class="input-button" onclick="generateCoins()">Generate</button>
@@ -269,14 +275,16 @@
         </div>
       </div>
 
+      <!-- Coin Weights & Results Section -->
       <div class="weight-section">
         <h2 id="selectCoinsAndRatios">Select Coins & Set Distribution Ratios</h2>
         <div class="coin-header">
           <span class="coin-header-type" id="typeOfCoin">Type of Coin</span>
-          <span class="coin-header-ratio" id="ratio">Ratio</span>
+          <span class="coin-header-ratio" id="ratio">Ratio (%)</span>
           <span class="coin-header-result" id="resultHeader">Result</span>
         </div>
 
+        <!-- Platinum row -->
         <div class="coin-option">
           <div class="coin-firstSection">
             <img class="coin-image" src="images/platinum.svg" alt="platinum coin" />
@@ -296,7 +304,7 @@
               type="number"
               value=""
               min="0"
-              max="20"
+              max="100"
               step="1"
               oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
@@ -304,6 +312,7 @@
           </div>
         </div>
 
+        <!-- Gold row -->
         <div class="coin-option">
           <div class="coin-firstSection">
             <img class="coin-image" src="images/gold.svg" alt="gold coin" />
@@ -323,7 +332,7 @@
               type="number"
               value=""
               min="0"
-              max="20"
+              max="100"
               step="1"
               oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
@@ -331,6 +340,7 @@
           </div>
         </div>
 
+        <!-- Electrum row -->
         <div class="coin-option">
           <div class="coin-firstSection">
             <img class="coin-image" src="images/electrum.svg" alt="electrum coin" />
@@ -350,7 +360,7 @@
               type="number"
               value=""
               min="0"
-              max="20"
+              max="100"
               step="1"
               oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
@@ -358,6 +368,7 @@
           </div>
         </div>
 
+        <!-- Silver row -->
         <div class="coin-option">
           <div class="coin-firstSection">
             <img class="coin-image" src="images/silver.svg" alt="silver coin" />
@@ -377,7 +388,7 @@
               type="number"
               value=""
               min="0"
-              max="20"
+              max="100"
               step="1"
               oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
@@ -385,6 +396,7 @@
           </div>
         </div>
 
+        <!-- Copper row -->
         <div class="coin-option">
           <div class="coin-firstSection">
             <img class="coin-image" src="images/copper.svg" alt="copper coin" />
@@ -404,7 +416,7 @@
               type="number"
               value=""
               min="0"
-              max="20"
+              max="100"
               step="1"
               oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
@@ -413,12 +425,14 @@
         </div>
 
         <p class="note" id="scrollNote">
-          Use the scroll wheel over the ratio fields to adjust values (0-20). The result fields will
-          show how many of each coin were generated.
+          Use the scroll wheel over the ratio fields to adjust values (0-100). The result fields
+          will show how many of each coin were generated.
         </p>
       </div>
 
+      <!-- Language & Dark Mode Container -->
       <div class="language-darkmode-container">
+        <!-- Custom Language Selector -->
         <div class="custom-select-container">
           <div class="custom-select-trigger">
             <span class="custom-select-text">English</span>
@@ -445,6 +459,7 @@
           </div>
         </div>
 
+        <!-- Dark Mode Toggle Switch using provided markup -->
         <div class="ct-cta-preference-manager" style="border-color: rgb(113, 82, 128)">
           <div
             class="ct-cta-preference-manager__primary"

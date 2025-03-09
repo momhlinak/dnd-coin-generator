@@ -7,10 +7,10 @@ const translations = {
     clear: 'Clear',
     selectCoinsAndRatios: 'Select Coins & Set Distribution Ratios',
     typeOfCoin: 'Type of Coin',
-    ratio: 'Ratio',
+    ratio: 'Ratio (%)',
     result: 'Result',
     scrollNote:
-      'Use the scroll wheel over the ratio fields to adjust values (0-20). The result fields will show how many of each coin were generated. Empty field is random 1-20',
+      'Use the scroll wheel over the ratio fields to adjust values (0-100). The result fields will show how many of each coin were generated. Empty field is random 1-100.',
     alertInvalidGold: 'Please enter a valid positive number of gold coins.',
     alertNoCoinEnabled: 'Please enable at least one coin type and set its ratio above 0.',
 
@@ -34,10 +34,10 @@ const translations = {
     clear: 'Zurücksetzen',
     selectCoinsAndRatios: 'Wähle Münzen & Verteile Verhältnis',
     typeOfCoin: 'Münztyp',
-    ratio: 'Verhältnis',
+    ratio: 'Verhältnis (%)',
     result: 'Ergebnis',
     scrollNote:
-      'Benutze das Mausrad über den Feldern, um den Wert (0-20) zu ändern. Die Ergebnisfelder zeigen, wie viele Münzen erzeugt wurden. Ein leeres Feld bedeutet einen zufälligen Wert zwischen 1 und 20.',
+      'Benutze das Mausrad über den Feldern, um den Wert (0-100) zu ändern. Die Ergebnisfelder zeigen, wie viele Münzen erzeugt wurden. Ein leeres Feld bedeutet einen zufälligen Wert zwischen 1 und 100.',
     alertInvalidGold: 'Bitte gib eine gültige positive Anzahl Goldmünzen ein.',
     alertNoCoinEnabled:
       'Bitte aktiviere mindestens eine Münzsorte und setze das Verhältnis über 0.',
@@ -62,10 +62,10 @@ const translations = {
     clear: 'Nulstil',
     selectCoinsAndRatios: 'Vælg mønter & sæt fordelingsforhold',
     typeOfCoin: 'Mønttype',
-    ratio: 'Forhold',
+    ratio: 'Forhold (%)',
     result: 'Resultat',
     scrollNote:
-      'Brug musehjulet over forholdsfelterne for at justere værdier (0-20). Resultatfelterne viser, hvor mange mønter der blev genereret. Et tomt felt betyder en tilfældig værdi mellem 1 og 20.',
+      'Brug musehjulet over forholdsfelterne for at justere værdier (0-100). Resultatfelterne viser, hvor mange mønter der blev genereret. Et tomt felt betyder en tilfældig værdi mellem 1 og 100.',
     alertInvalidGold: 'Indtast venligst et gyldigt positivt antal guldmønter.',
     alertNoCoinEnabled: 'Aktiver venligst mindst én mønttype og sæt dens forhold over 0.',
 
@@ -89,10 +89,10 @@ const translations = {
     clear: 'Cancella',
     selectCoinsAndRatios: 'Seleziona Monete e Imposta Rapporti di Distribuzione',
     typeOfCoin: 'Tipo di Moneta',
-    ratio: 'Rapporto',
+    ratio: 'Rapporto (%)',
     result: 'Risultato',
     scrollNote:
-      'Utilizza la rotellina del mouse sui campi dei rapporti per regolare i valori (0-20). I campi dei risultati mostreranno quante monete sono state generate. Un campo vuoto significa un valore casuale da 1 a 20.',
+      'Utilizza la rotellina del mouse sui campi dei rapporti per regolare i valori (0-100). I campi dei risultati mostreranno quante monete sono state generate. Un campo vuoto significa un valore casuale da 1 a 100.',
     alertInvalidGold: "Inserisci un numero positivo valido di monete d'oro.",
     alertNoCoinEnabled: 'Attiva almeno un tipo di moneta e imposta il suo rapporto sopra 0.',
 
@@ -116,10 +116,10 @@ const translations = {
     clear: 'Effacer',
     selectCoinsAndRatios: 'Sélectionnez les pièces & définissez les ratios de distribution',
     typeOfCoin: 'Type de pièce',
-    ratio: 'Ratio',
+    ratio: 'Ratio (%)',
     result: 'Résultat',
     scrollNote:
-      'Utilisez la molette de la souris sur les champs de ratio pour ajuster les valeurs (0-20). Les champs de résultat afficheront combien de pièces ont été générées. Un champ vide signifie une valeur aléatoire entre 1 et 20.',
+      'Utilisez la molette de la souris sur les champs de ratio pour ajuster les valeurs (0-100). Les champs de résultat afficheront combien de pièces ont été générées. Un champ vide signifie une valeur aléatoire entre 1 et 100.',
     alertInvalidGold: "Veuillez entrer un nombre positif valide de pièces d'or.",
     alertNoCoinEnabled:
       'Veuillez activer au moins un type de pièce et définir son ratio supérieur à 0.',
@@ -144,10 +144,10 @@ const translations = {
     clear: 'Limpiar',
     selectCoinsAndRatios: 'Selecciona monedas y establece los ratios de distribución',
     typeOfCoin: 'Tipo de moneda',
-    ratio: 'Ratio',
+    ratio: 'Ratio (%)',
     result: 'Resultado',
     scrollNote:
-      'Usa la rueda del ratón sobre los campos de ratio para ajustar los valores (0-20). Los campos de resultado mostrarán cuántas monedas se han generado. Un campo vacío equivale a un valor aleatorio entre 1 y 20.',
+      'Usa la rueda del ratón sobre los campos de ratio para ajustar los valores (0-100). Los campos de resultado mostrarán cuántas monedas se han generado. Un campo vacío equivale a un valor aleatorio entre 1 y 100.',
     alertInvalidGold: 'Por favor, ingresa un número positivo válido de monedas de oro.',
     alertNoCoinEnabled:
       'Por favor, activa al menos un tipo de moneda y establece su ratio por encima de 0.',

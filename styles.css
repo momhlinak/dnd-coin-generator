@@ -133,7 +133,7 @@ body.darkmode .toggle-btn.disabled {
   padding: 1.25rem;
   box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.3);
   border-radius: 0.5rem;
-  background-image: url('images/frame-bk-lightmode.svg');
+  background-image: url('images/frame-bk-darkmode.svg');
   background-size: 478px auto;
   background-position: center;
   background-repeat: no-repeat;
@@ -162,7 +162,7 @@ body.darkmode .weight-section {
 /* Labels & Notes */
 .input-section p,
 .weight-section .note {
-  color: #000000;
+  color: #ccc;
 }
 
 .note {
@@ -181,7 +181,7 @@ body.darkmode .input-section p {
   justify-content: space-between;
   margin-bottom: 0.5rem;
   font-size: 1rem;
-  color: #000000;
+  color: #ccc;
   font-weight: medium;
   gap: 0.5rem;
 }
