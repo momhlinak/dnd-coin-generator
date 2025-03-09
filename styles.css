@@ -162,12 +162,17 @@ body.darkmode .weight-section {
 /* Labels & Notes */
 .input-section p,
 .weight-section .note {
-  color: #cf9f25;
+  color: #000000;
 }
 
 .note {
   font-size: 0.9rem;
   margin-top: 1rem;
+}
+
+body.darkmode .note,
+body.darkmode .input-section p {
+  color: #ccc;
 }
 
 /* Header Row for Coin Options */
@@ -176,9 +181,13 @@ body.darkmode .weight-section {
   justify-content: space-between;
   margin-bottom: 0.5rem;
   font-size: 1rem;
-  color: #cf9f25;
-  font-weight: bold;
+  color: #000000;
+  font-weight: medium;
   gap: 0.5rem;
+}
+
+body.darkmode .coin-header {
+  color: #ccc;
 }
 
 .coin-header-type {
