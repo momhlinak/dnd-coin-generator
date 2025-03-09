@@ -71,17 +71,11 @@
         function readRatio(inputId, isEnabled) {
           if (!isEnabled) return 0
           const el = document.getElementById(inputId)
-          if (!el.value.trim()) {
-            return getRandomRatio()
-          }
-          const val = parseFloat(el.value)
-          if (isNaN(val) || val === 0) {
-            return getRandomRatio()
-          }
-          return val
+          el.value = el.value.replace(/[^\d]/g, '')
+          return parseInt(el.value, 10) || 0
         }
 
-        return {
+        const weights = {
           platinum: readRatio(
             'weight-platinum',
             document.getElementById('toggle-platinum').classList.contains('enabled')
@@ -103,6 +97,18 @@
             document.getElementById('toggle-copper').classList.contains('enabled')
           ),
         }
+
+        const totalWeight = Object.values(weights).reduce((a, b) => a + b, 0)
+        if (totalWeight === 0) {
+          return {
+            platinum: 0,
+            gold: 1,
+            electrum: 0,
+            silver: 0,
+            copper: 0,
+          }
+        }
+        return weights
       }
 
       function generateCoins() {
@@ -229,6 +235,19 @@
           })
         })
       })
+
+      function enforceCoinRatioInput(input) {
+        let value = input.value.replace(/[^0-9.]/g, '')
+        const parts = value.split('.')
+        if (parts.length > 2) {
+          value = parts[0] + '.' + parts.slice(1).join('')
+        }
+        if (parts.length === 2) {
+          parts[1] = parts[1].substring(0, 1)
+          value = parts[0] + '.' + parts[1]
+        }
+        input.value = value
+      }
     </script>
   </head>
   <body>
@@ -237,7 +256,13 @@
 
       <div class="input-section">
         <p id="enterGoldCoins">Enter the number of gold coins:</p>
-        <input id="goldInput" class="gold-input" type="number" placeholder="e.g. 10" />
+        <input
+          id="goldInput"
+          class="gold-input"
+          type="number"
+          step="1"
+          oninput="this.value = this.value.replace(/[^\d]/g, '');"
+        />
         <div class="input-buttons">
           <button id="generateBtn" class="input-button" onclick="generateCoins()">Generate</button>
           <button id="clearBtn" class="input-button" onclick="clearResult()">Clear</button>
@@ -273,6 +298,7 @@
               min="0"
               max="20"
               step="1"
+              oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
             <input id="result-platinum" class="coin-result" type="text" value="0" readonly />
           </div>
@@ -299,6 +325,7 @@
               min="0"
               max="20"
               step="1"
+              oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
             <input id="result-gold" class="coin-result" type="text" value="0" readonly />
           </div>
@@ -325,6 +352,7 @@
               min="0"
               max="20"
               step="1"
+              oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
             <input id="result-electrum" class="coin-result" type="text" value="0" readonly />
           </div>
@@ -351,6 +379,7 @@
               min="0"
               max="20"
               step="1"
+              oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
             <input id="result-silver" class="coin-result" type="text" value="0" readonly />
           </div>
@@ -377,6 +406,7 @@
               min="0"
               max="20"
               step="1"
+              oninput="this.value = this.value.replace(/[^\d]/g, '');"
             />
             <input id="result-copper" class="coin-result" type="text" value="0" readonly />
           </div>
